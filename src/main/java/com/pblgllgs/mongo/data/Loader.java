@@ -27,7 +27,7 @@ public class Loader implements CommandLineRunner {
         List<Person> people = personService.findAllPeople();
         if (people.isEmpty()) {
             Faker faker = new Faker();
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 500; i++) {
                 Address address1 = Address.builder()
                         .address1(faker.address().firstName())
                         .address2(faker.address().secondaryAddress())
@@ -44,7 +44,7 @@ public class Loader implements CommandLineRunner {
                         .age(faker.number().numberBetween(1,99))
                         .firstName(faker.name().firstName())
                         .lastName(faker.name().lastName())
-                        .hobbies(List.of("dev", "prod"))
+                        .hobbies(List.of(faker.programmingLanguage().name(),faker.programmingLanguage().name() ))
                         .addresses(List.of(address1, address2))
                         .build();
                 personService.savePerson(person);

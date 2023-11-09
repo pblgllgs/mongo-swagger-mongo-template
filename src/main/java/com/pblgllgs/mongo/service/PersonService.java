@@ -23,7 +23,9 @@ public interface PersonService {
 
     void deletePersonById(String id);
 
-    Page<Person> search(String firstName, Integer minAge, Integer maxAge, String city, Pageable pageable);
+    Page<Person> search(String firstName,String lastName ,Integer minAge, Integer maxAge, String city, Pageable pageable);
 
     List<Document> findOldestPersonByCity();
+
+    List<Document> findPopulationByCity();
 }

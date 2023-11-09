@@ -56,21 +56,25 @@ public class PersonController {
 
     @GetMapping("/person")
     public ResponseEntity<Page<Person>> searchPerson(
-            @RequestParam(value = "name",required = false) String firstName,
+            @RequestParam(value = "firstName",required = false) String firstName,
+            @RequestParam(value = "lastName",required = false) String lastName,
             @RequestParam(value = "minAge",required = false) Integer minAge,
             @RequestParam(value = "maxAge",required = false) Integer maxAge,
             @RequestParam(value = "city",required = false) String city,
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "5") Integer size,
-            @RequestParam(defaultValue = "asc") String sort
+            @RequestParam(defaultValue = "5") Integer size
     ){
-        Pageable pageable = PageRequest.of(page,size,Sort.by(sort).descending());
-
-        return new ResponseEntity<>(personService.search(firstName,minAge,maxAge,city,pageable), HttpStatus.OK);
+        Pageable pageable = PageRequest.of(page,size);
+        return new ResponseEntity<>(personService.search(firstName,lastName,minAge,maxAge,city,pageable), HttpStatus.OK);
     }
 
     @GetMapping("/oldest")
     public List<Document> findOldestPersonByCity(){
         return personService.findOldestPersonByCity();
+    }
+
+    @GetMapping("/population")
+    public List<Document> findPopulationByCity(){
+        return personService.findPopulationByCity();
     }
 }
